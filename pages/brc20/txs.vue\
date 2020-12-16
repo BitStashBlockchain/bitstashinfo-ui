@@ -1,0 +1,68 @@
+<template>
+  <div class="container">
+    <Panel width="100%" title="Token">
+      <table>
+        <thead>
+          <tr>
+            <td>Id</td>
+            <td>Time</td>
+            <td>value</td>
+            <td>sender</td>
+<td>Receiver</td>
+            <td>Confirmations</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="pokemon in info">
+            <td>pokemon</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </Panel>
+  </div>
+</template>
+
+<script>
+import Vue from "vue";
+import Panel from "../../components/panel";
+import Contract from "@/models/contract";
+import Transaction from "@/models/transaction";
+import { RequestError } from "@/services/bitstashinfo-api";
+import { scrollIntoView } from "@/utils/dom";
+    export default {
+    el: '#app',
+
+    data () {
+        return {
+            info: [],
+            loading: true,
+            errored: false
+        }
+    },
+
+    mounted () {
+        axios
+
+        .get('https://pokeapi.co/api/v2/pokemon/')
+
+        .then(response => {
+            this.info = response.data.results
+        })
+
+        .catch(error => {
+            console.log(error)
+            this.errored = true
+        })
+
+        .finally(() => this.loading = false)
+    }
+};
+</script>
+
+<style lang="less" scoped>
+@import url("../../styles/pages/contract/deal_list.less");
+</style>

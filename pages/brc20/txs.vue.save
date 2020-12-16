@@ -1,0 +1,23 @@
+<template>
+    <div>
+        {{ content }}
+    </div>
+</template>
+
+<script>
+import axios from 'axios';
+
+export default {
+    data () {
+        return {
+            content: []
+        }
+    },
+    created () {
+        axios.get('https://explore.bitstash.co/api/qrc20/txs/')
+            .then(function (response) {
+                this.content = response.data.result   
+            })
+    }
+}
+</script>
